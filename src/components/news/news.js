@@ -1,8 +1,8 @@
 import './news.css';
 
-const News = ({ news, title }) => {
+const News = ({ news, title, error }) => {
   if (!news || news.length === 0) {
-    return null;
+    return error ? <h2>{error}</h2> : null;
   }
 
   return (
@@ -14,7 +14,7 @@ const News = ({ news, title }) => {
             { objectID, url, title, points, num_comments, created_at, author },
             index
           ) => (
-            <li key={index} className="news">
+            <li key={objectID + index} className="news">
               <div className="description">
                 <a href={url} className="news-title">
                   {title || 'No title'}
