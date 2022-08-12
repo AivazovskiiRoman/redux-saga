@@ -1,31 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import './index.css';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from './redux/reducers';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import Home from './pages/home/home';
 import LatestNews from './pages/latest-news/latest-news';
 import PopularNews from './pages/popular-news/popular-news';
-
-const history = createBrowserHistory();
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router history={history}>
+      <ConnectedRouter history={history}>
         <App>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/latest-news" element={<LatestNews />} />
-            <Route path="/popular-news" element={<PopularNews />} />
-          </Routes>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/latest-news" exact>
+              <LatestNews />
+            </Route>
+            <Route path="/popular-news" exact>
+              <PopularNews />
+            </Route>
+          </Switch>
         </App>
-      </Router>
+      </ConnectedRouter>
     </Provider>
   </React.StrictMode>
 );
